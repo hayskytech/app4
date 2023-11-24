@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Outlet, Link } from 'react-router-dom'
 import { About, Contact } from './pages/About'
 import NoPage from './pages/NoPage'
 import { Button } from 'semantic-ui-react'
+import TodoListSimple from './pages/TodoListSimple'
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
             <Route path="" element={<Waa />} />
             <Route path="about" element={<About />} />
             <Route path="contact" element={<Contact />} />
+            <Route path="todolistsimple" element={<TodoListSimple />} />
             <Route path="states" element={<States />} />
             <Route path="*" element={<NoPage />} />
           </Route>
@@ -27,16 +29,11 @@ export default function App() {
 function MainMenu() {
   return (
     <div>
-
-      <Link to="/">
-        <Button color='blue'>Home</Button>
-      </Link>
-
+      <Button as={Link} to='/' color='blue'>Home</Button>
       <Button as={Link} to="/about" color='blue'>About</Button>
       <Button as={Link} to="/contact" color='blue'>Contact</Button>
       <Button as={Link} to="/states" color='blue'>States</Button>
-      <Button as={Link} to='/user' color='blue'>User</Button>
-
+      <Button as={Link} to='/todolistsimple' color='blue'>TodoListSimple</Button>
       <hr />
       <div style={{ padding: 10 }}>
         <Outlet />
