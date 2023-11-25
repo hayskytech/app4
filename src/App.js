@@ -7,6 +7,7 @@ import { About, Contact } from './pages/About'
 import NoPage from './pages/NoPage'
 import { Button } from 'semantic-ui-react'
 import TodoListSimple from './pages/TodoListSimple'
+import TodoLocal from './pages/TodoLocal'
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
             <Route path="contact" element={<Contact />} />
             <Route path="todolistsimple" element={<TodoListSimple />} />
             <Route path="states" element={<States />} />
+            <Route path="todolocal" element={<TodoLocal />} />
             <Route path="*" element={<NoPage />} />
           </Route>
         </Routes>
@@ -34,6 +36,7 @@ function MainMenu() {
       <Button as={Link} to="/contact" color='blue'>Contact</Button>
       <Button as={Link} to="/states" color='blue'>States</Button>
       <Button as={Link} to='/todolistsimple' color='blue'>TodoListSimple</Button>
+      <Button as={Link} to='/todolocal' color='blue'>TodoLocal</Button>
       <hr />
       <div style={{ padding: 10 }}>
         <Outlet />
