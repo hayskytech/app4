@@ -1,50 +1,29 @@
-import React from 'react'
-import 'semantic-ui-css/semantic.min.css'
-import States from './pages/States'
-import { BrowserRouter, Routes, Route, Outlet, Link } from 'react-router-dom'
-import { About, Contact } from './pages/About'
-import NoPage from './pages/NoPage'
-import { Button } from 'semantic-ui-react'
-import TodoListSimple from './pages/TodoListSimple'
-import TodoLocal from './pages/TodoLocal'
-import CatFacts from './api/CatFacts'
-import News from './api/News'
+import React, { useState } from 'react'
 
 export default function App() {
+  const [x, setx] = useState(0)
+  const [y, sety] = useState(0)
+  function handleX(e) {
+    setx(e.target.value)
+  }
+  function handleY(e) {
+    sety(e.target.value)
+  }
   return (
     <div>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<MainMenu />}>
-            <Route index element={<About />} />
-            <Route path="contact" element={<Contact />} />
-            <Route path="todolistsimple" element={<TodoListSimple />} />
-            <Route path="states" element={<States />} />
-            <Route path="todolocal" element={<TodoLocal />} />
-            <Route path="catfacts" element={<CatFacts />} />
-            <Route path="news" element={<News />} />
-            <Route path="*" element={<NoPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </div>
-  )
-}
-function MainMenu() {
-  return (
-    <div>
-      <Button as={Link} to='/' color='blue'>Home</Button>
-      <Button as={Link} to="/contact" color='blue'>Contact</Button>
-      <Button as={Link} to="/states" color='blue'>States</Button>
-      <Button as={Link} to='/todolistsimple' color='blue'>TodoListSimple</Button>
-      <Button as={Link} to='/todolocal' color='blue'>TodoLocal</Button>
-      <Button as={Link} to='/catfacts' color='blue'>CatFacts</Button>
-      <Button as={Link} to='/news' color='blue'>News</Button>
+      X: <input type="number" value={x} onChange={handleX} />
+      <br />
+      Y: <input type="number" value={y} onChange={handleY} />
       <hr />
-      <div style={{ padding: 10 }}>
-        <Outlet />
-      </div>
-      <hr />
+      <h1>X value : {x}</h1>
+      <h1>Y value: {y}</h1>
+      <h2>Addition: {Number(x) + Number(y)}</h2>
+      <h2>Substraction {x - y}</h2>
+      <h2>Mul {x * y}</h2>
+      <h2>Division {x / y}</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex modi magni repellat reiciendis, accusantium quaerat nihil? Dignissimos necessitatibus cupiditate laborum, nulla debitis ipsum vero molestias blanditiis exercitationem quia. Omnis, ratione.
+      </p>
     </div>
   )
 }
