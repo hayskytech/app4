@@ -1,29 +1,40 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { BrowserRouter, Link, Outlet, Route, Routes } from 'react-router-dom'
+import States from './comp/States'
+import NoPage from './comp/NoPage'
+import About from './comp/About'
+import Contact from './comp/Contact'
+import Services from './comp/Services'
 
 export default function App() {
-  const [x, setx] = useState(0)
-  const [y, sety] = useState(0)
-  function handleX(e) {
-    setx(e.target.value)
-  }
-  function handleY(e) {
-    sety(e.target.value)
-  }
+  return (<>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainMenu />}>
+          <Route index element={<States />} />
+          <Route path='states' element={<States />} />
+          <Route path="about" element={<About />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="services" element={<Services />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  </>)
+}
+
+
+function MainMenu() {
   return (
     <div>
-      X: <input type="number" value={x} onChange={handleX} />
-      <br />
-      Y: <input type="number" value={y} onChange={handleY} />
-      <hr />
-      <h1>X value : {x}</h1>
-      <h1>Y value: {y}</h1>
-      <h2>Addition: {Number(x) + Number(y)}</h2>
-      <h2>Substraction {x - y}</h2>
-      <h2>Mul {x * y}</h2>
-      <h2>Division {x / y}</h2>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex modi magni repellat reiciendis, accusantium quaerat nihil? Dignissimos necessitatibus cupiditate laborum, nulla debitis ipsum vero molestias blanditiis exercitationem quia. Omnis, ratione.
-      </p>
+      {/* <Link to='/'>Home</Link> */}
+      <Link to='/'><button>Home</button></Link>
+      <Link to='/states'><button>States</button></Link>
+      <Link to='/about'><button>About</button></Link>
+      <Link to='/contact'><button>Contact Us</button></Link>
+      <Link to='/hello'><button>Hello</button></Link>
+      <Link to='/services'><button>Services</button></Link>
+      <Outlet />
     </div>
   )
 }
