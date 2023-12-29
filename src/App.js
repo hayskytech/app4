@@ -10,6 +10,7 @@ import NewsAPI from './comp/NewsAPI'
 import NewsAPI2 from './comp/NewsAPI2'
 import { Button } from 'semantic-ui-react'
 import TodoListBasic from './comp/TodoListBasic'
+import TodoList2 from './comp/TodoList2'
 
 export default function App() {
   return (<>
@@ -24,6 +25,7 @@ export default function App() {
           <Route path='newsapi' element={<NewsAPI />} />
           <Route path='newsapi2' element={<NewsAPI2 />} />
           <Route path='todolistbasic' element={<TodoListBasic />} />
+          <Route path='todolist2' element={<TodoList2 />} />
           <Route path="*" element={<NoPage />} />
         </Route>
       </Routes>
@@ -46,6 +48,7 @@ function MainMenu() {
         <Link to='/newsapi'><Button>NewsAPI</Button></Link>
         <Link to='/newsapi2'><Button>NewsAPI2</Button></Link>
         <Link to='/todolistbasic'><Button>TodoListBasic</Button></Link>
+        <Link to='/todolist2'><Button>TodoList2</Button></Link>
       </div>
       <hr />
       <Outlet />
