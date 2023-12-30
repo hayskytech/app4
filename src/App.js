@@ -11,6 +11,8 @@ import NewsAPI2 from './comp/NewsAPI2'
 import { Button } from 'semantic-ui-react'
 import TodoListBasic from './comp/TodoListBasic'
 import TodoList2 from './comp/TodoList2'
+import FetchfromFB from './FB/FetchfromFB'
+import FetchSimple from './FB/FetchSimple'
 
 export default function App() {
   return (<>
@@ -18,15 +20,17 @@ export default function App() {
       <Routes>
         <Route path="/" element={<MainMenu />}>
           <Route index element={<States />} />
-          <Route path='states' element={<States />} />
-          <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="services" element={<Services />} />
-          <Route path='newsapi' element={<NewsAPI />} />
-          <Route path='newsapi2' element={<NewsAPI2 />} />
-          <Route path='todolistbasic' element={<TodoListBasic />} />
-          <Route path='todolist2' element={<TodoList2 />} />
-          <Route path="*" element={<NoPage />} />
+          <Route element={<States />} path='states' />
+          <Route element={<About />} path="about" />
+          <Route element={<Contact />} path="contact" />
+          <Route element={<Services />} path="services" />
+          <Route element={<NewsAPI />} path='newsapi' />
+          <Route element={<NewsAPI2 />} path='newsapi2' />
+          <Route element={<TodoListBasic />} path='todolistbasic' />
+          <Route element={<TodoList2 />} path='todolist2' />
+          <Route element={<FetchfromFB />} path='fetchfromfb' />
+          <Route element={<FetchSimple />} path='fetchsimple' />
+          <Route element={<NoPage />} path="*" />
         </Route>
       </Routes>
     </BrowserRouter>
@@ -38,8 +42,10 @@ function MainMenu() {
   return (
     <>
       <div>
+        <Link to='fetchfromfb'><Button>FetchfromFB</Button></Link>
+        <Link to='fetchsimple'><Button>Fetch Simple</Button></Link>
         {/* <Link to='/'>Home</Link> */}
-        <Link to='/'><Button>Home</Button></Link>
+        {/* <Link to='/'><Button>Home</Button></Link>
         <Link to='/states'><Button>States</Button></Link>
         <Link to='/about'><Button>About</Button></Link>
         <Link to='/contact'><Button>Contact Us</Button></Link>
@@ -48,10 +54,28 @@ function MainMenu() {
         <Link to='/newsapi'><Button>NewsAPI</Button></Link>
         <Link to='/newsapi2'><Button>NewsAPI2</Button></Link>
         <Link to='/todolistbasic'><Button>TodoListBasic</Button></Link>
-        <Link to='/todolist2'><Button>TodoList2</Button></Link>
+        <Link to='/todolist2'><Button>TodoList2</Button></Link> */}
       </div>
       <hr />
       <Outlet />
     </>
   )
 }
+
+
+// const x = 123
+// const y = 'hello'
+// const z = true
+// const names = ['apple', 'bag', 'vat']
+// const student = { name: 'raju', age: 20 }
+// alert(student.age)
+
+// const countries = [
+//   { name: 'India', code: 'IN' },
+//   { name: 'India', code: 'IN' },
+//   { name: 'India', code: 'IN' },
+//   { name: 'India', code: 'IN' },
+//   { name: 'India', code: 'IN' },
+//   { name: 'India', code: 'IN' },
+// ]
+// alert(countries[0].code)
