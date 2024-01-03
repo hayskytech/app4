@@ -14,6 +14,7 @@ import TodoList2 from './comp/TodoList2'
 import FetchfromFB from './FB/FetchfromFB'
 import FetchSimple from './FB/FetchSimple'
 import Students from './FB/Students'
+import TodosSimple from './FB/TodosSimple'
 
 export default function App() {
   return (<>
@@ -32,6 +33,7 @@ export default function App() {
           <Route element={<FetchfromFB />} path='fetchfromfb' />
           <Route element={<FetchSimple />} path='fetchsimple' />
           <Route element={<Students />} path='students' />
+          <Route element={<TodosSimple />} path='todossimple' />
           <Route element={<NoPage />} path="*" />
         </Route>
       </Routes>
@@ -47,6 +49,7 @@ function MainMenu() {
         <Link to='fetchfromfb'><Button>FetchfromFB</Button></Link>
         <Link to='fetchsimple'><Button>Fetch Simple</Button></Link>
         <Link to='students'><Button>Students</Button></Link>
+        <Link to='todossimple'><Button>Todos Simple</Button></Link>
         {/* <Link to='/'>Home</Link> */}
         {/* <Link to='/'><Button>Home</Button></Link>
         <Link to='/states'><Button>States</Button></Link>

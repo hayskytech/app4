@@ -1,21 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue, set, push } from "firebase/database";
+import { ref, onValue, set, push } from "firebase/database";
 import { Button, Input } from 'semantic-ui-react';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD5fdKt-aeJGVxa5lEZxuye4tSIZKkfy-0",
-  authDomain: "newone-55b3f.firebaseapp.com",
-  databaseURL: "https://newone-55b3f-default-rtdb.firebaseio.com",
-  projectId: "newone-55b3f",
-  storageBucket: "newone-55b3f.appspot.com",
-  messagingSenderId: "269884942787",
-  appId: "1:269884942787:web:32fcb04cbcd5e4e767b576"
-};
+import { db } from './conf';
 
 export default function Students() {
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app)
   const studentRef = ref(db, 'students');
 
   const [list, setList] = useState([])
@@ -33,9 +21,6 @@ export default function Students() {
   function addItem() {
     const newKey = push(studentRef);
     set(newKey, { name, age });
-
-    // const newPostKey = push(child(ref(db), 'students')).key
-    // set(ref(db, '/students/' + newPostKey), { name, age })
   }
 
   return (
