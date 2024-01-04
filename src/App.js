@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 import 'semantic-ui-css/semantic.min.css'
 import { BrowserRouter, Link, Outlet, Route, Routes } from 'react-router-dom'
+import { onAuthStateChanged, onIdTokenChanged } from 'firebase/auth';
 import States from './comp/States'
 import NoPage from './comp/NoPage'
 import About from './comp/About'
@@ -15,9 +16,26 @@ import FetchfromFB from './FB/FetchfromFB'
 import FetchSimple from './FB/FetchSimple'
 import Students from './FB/Students'
 import TodosSimple from './FB/TodosSimple'
+import OTPLogin from './FB/OTPLogin'
+import { auth } from './FB/conf';
+import Account from './FB/Account';
+export const MyContext = createContext(null)
 
 export default function App() {
-  return (<>
+  const [user, setUser] = useState(55)
+  useEffect(() => {
+    const unsubscribeAuthState = onAuthStateChanged(auth, (user) => {
+      setUser(user);
+    });
+    const unsubscribeIdToken = onIdTokenChanged(auth, (user) => {
+      setUser(user);
+    });
+    return () => {
+      unsubscribeAuthState();
+      unsubscribeIdToken();
+    };
+  }, [auth]);
+  return (<MyContext.Provider value={{ user, setUser }}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainMenu />}>
@@ -34,11 +52,13 @@ export default function App() {
           <Route element={<FetchSimple />} path='fetchsimple' />
           <Route element={<Students />} path='students' />
           <Route element={<TodosSimple />} path='todossimple' />
+          <Route element={<OTPLogin />} path='otplogin' />
+          <Route element={<Account />} path='account' />
           <Route element={<NoPage />} path="*" />
         </Route>
       </Routes>
     </BrowserRouter>
-  </>)
+  </MyContext.Provider>)
 }
 
 
@@ -50,6 +70,8 @@ function MainMenu() {
         <Link to='fetchsimple'><Button>Fetch Simple</Button></Link>
         <Link to='students'><Button>Students</Button></Link>
         <Link to='todossimple'><Button>Todos Simple</Button></Link>
+        <Link to='otplogin'><Button>OTP Login</Button></Link>
+        <Link to='account'><Button>Account</Button></Link>
         {/* <Link to='/'>Home</Link> */}
         {/* <Link to='/'><Button>Home</Button></Link>
         <Link to='/states'><Button>States</Button></Link>
