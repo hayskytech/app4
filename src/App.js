@@ -19,6 +19,7 @@ import TodosSimple from './FB/TodosSimple'
 import OTPLogin from './FB/OTPLogin'
 import { auth } from './FB/conf';
 import Account from './FB/Account';
+import MyTodoList from './FB/MyTodoList';
 export const MyContext = createContext(null)
 
 export default function App() {
@@ -54,6 +55,7 @@ export default function App() {
           <Route element={<TodosSimple />} path='todossimple' />
           <Route element={<OTPLogin />} path='otplogin' />
           <Route element={<Account />} path='account' />
+          <Route element={<MyTodoList />} path='mytodolist' />
           <Route element={<NoPage />} path="*" />
         </Route>
       </Routes>
@@ -72,6 +74,7 @@ function MainMenu() {
         <Link to='todossimple'><Button>Todos Simple</Button></Link>
         <Link to='otplogin'><Button>OTP Login</Button></Link>
         <Link to='account'><Button>Account</Button></Link>
+        <Link to='mytodolist'><Button>My todo list</Button></Link>
         {/* <Link to='/'>Home</Link> */}
         {/* <Link to='/'><Button>Home</Button></Link>
         <Link to='/states'><Button>States</Button></Link>

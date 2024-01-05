@@ -3,10 +3,9 @@ import { MyContext } from '../App'
 
 export default function Account() {
   const { user } = useContext(MyContext)
-  console.log(user);
   return (
     <div>
-      hai
+      {user?.phoneNumber}
     </div>
   )
 }
