@@ -1,6 +1,8 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const cors = require("cors")
+const sqlite3 = require('sqlite3')
+const db = new sqlite3.Database('./mydb.db')
 
 const app = express()
 app.use(cors())
@@ -29,4 +31,23 @@ app.get('/test2', (req, res) => {
 app.post('/test3', (req, res) => {
   const { address, phone } = req.body
   return res.json({ address, phone })
+})
+
+app.get('/student', (req, res) => {
+  const sql = "SELECT * FROM student"
+  db.all(sql, (error, result) => {
+    return res.json(result)
+  })
+})
+
+app.post('/student', (req, res) => {
+  const { name, phone } = req.body
+  const sql = "INSERT INTO student (name,phone) values (?,?)"
+
+  db.run(sql, [name, phone], (error) => {
+    if (error) {
+      return res.json(error.message)
+    }
+    return res.json(`${name} added successfully.`)
+  })
 })
