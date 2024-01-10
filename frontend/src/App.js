@@ -14,12 +14,12 @@ import TodoListBasic from './comp/TodoListBasic'
 import TodoList2 from './comp/TodoList2'
 import FetchfromFB from './FB/FetchfromFB'
 import FetchSimple from './FB/FetchSimple'
-import Students from './FB/Students'
 import TodosSimple from './FB/TodosSimple'
 import OTPLogin from './FB/OTPLogin'
 import { auth } from './FB/conf';
 import Account from './FB/Account';
 import MyTodoList from './FB/MyTodoList';
+import Students from './express/Students';
 export const MyContext = createContext(null)
 
 export default function App() {
@@ -56,6 +56,7 @@ export default function App() {
           <Route element={<OTPLogin />} path='otplogin' />
           <Route element={<Account />} path='account' />
           <Route element={<MyTodoList />} path='mytodolist' />
+          <Route element={<Students />} path='Students' />
           <Route element={<NoPage />} path="*" />
         </Route>
       </Routes>
@@ -75,6 +76,7 @@ function MainMenu() {
         <Link to='otplogin'><Button>OTP Login</Button></Link>
         <Link to='account'><Button>Account</Button></Link>
         <Link to='mytodolist'><Button>My todo list</Button></Link>
+        <Link to='students'><Button>Students</Button></Link>
         {/* <Link to='/'>Home</Link> */}
         {/* <Link to='/'><Button>Home</Button></Link>
         <Link to='/states'><Button>States</Button></Link>
