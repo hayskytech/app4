@@ -1,20 +1,101 @@
 import React, { useEffect, useState } from 'react'
+import { FormField, Button, Input, Checkbox, Form, List, Container } from 'semantic-ui-react'
 
 export default function Students() {
   const [list, setList] = useState([])
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [refresh, setRefresh] = useState(true)
+  let headersList = {
+    "Accept": "*/*",
+    "Content-Type": "application/json"
+  }
 
+  // getting all students from DB
   useEffect(() => {
-    fetch('http://localhost:4000/student')
+    // console.log('loading...');
+    fetch('http://localhost:4000/students')
       .then(res => res.json())
       .then(json => setList(json))
-  }, [])
+  }, [refresh])
+
+  function addItem(e) {
+    e.preventDefault()
+
+    let bodyContent = JSON.stringify({
+      "name": name,
+      "phone": phone
+    });
+
+    fetch("http://localhost:4000/students/", {
+      method: "POST",
+      body: bodyContent,
+      headers: headersList
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        setName('')
+        setPhone('')
+        setRefresh(!refresh)
+      })
+
+  }
+
+  function deleteItem(id) {
+    fetch("http://localhost:4000/students/" + id, {
+      method: "DELETE",
+      headers: headersList
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        setRefresh(!refresh)
+      })
+  }
+  function deleteAll() {
+    fetch("http://localhost:4000/students/", {
+      method: "DELETE",
+      headers: headersList
+    })
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        setRefresh(!refresh)
+      })
+  }
 
   return (
-    <div>
+    <Container>
       <h3>Students</h3>
-      {
-        list.map((item) => <p>{item.name}</p>)
-      }
-    </div>
+      {/* <h3>{refresh ? 'true' : 'false'}</h3> */}
+      <Form onSubmit={addItem}>
+        Name: <Input type='text' value={name} onChange={e => setName(e.target.value)} />
+        <br />
+        Phone:
+        <Input type='text' value={phone} onChange={e => setPhone(e.target.value)} />
+        <br />
+        <Button color='blue'>ADD</Button>
+      </Form>
+
+      <Button color='red' onClick={deleteAll}>Delete All</Button>
+
+      <List divided verticalAlign='middle'>
+        {
+          list.map((item) =>
+            <List.Item>
+              <List.Content floated='right'>
+                <Button color='red' onClick={() => deleteItem(item.id)}>Delete</Button>
+              </List.Content>
+              <List.Content>{item.name}</List.Content>
+              <List.Content>{item.phone}</List.Content>
+            </List.Item>
+          )
+        }
+      </List>
+
+
+
+    </Container>
   )
 }
