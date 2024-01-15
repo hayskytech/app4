@@ -57,6 +57,15 @@ app.get("/students", (req, res) => {
     return res.status(200).json(result);
   });
 })
+// get one student by id
+app.get("/students/:id", (req, res) => {
+  const { id } = req.params
+  const sql = "SELECT * FROM students where id=?"
+  db.get(sql, [id], (error, result) => {
+    if (error) return res.status(500).json(error.message)
+    return res.status(200).json(result);
+  });
+})
 
 // add a studnets
 app.post('/students', (req, res) => {
