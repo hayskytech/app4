@@ -20,10 +20,16 @@ import { auth } from './FB/conf';
 import Account from './FB/Account';
 import MyTodoList from './FB/MyTodoList';
 import Students from './express/Students';
+import MyAccount from './express/MyAccount';
 export const MyContext = createContext(null)
 
 export default function App() {
   const [user, setUser] = useState(55)
+  let oldToken = null
+  if (localStorage.getItem('token')) {
+    oldToken = JSON.parse(localStorage.getItem('token'))
+  }
+  const [token, setToken] = useState(oldToken)
   useEffect(() => {
     const unsubscribeAuthState = onAuthStateChanged(auth, (user) => {
       setUser(user);
@@ -36,7 +42,7 @@ export default function App() {
       unsubscribeIdToken();
     };
   }, [auth]);
-  return (<MyContext.Provider value={{ user, setUser }}>
+  return (<MyContext.Provider value={{ user, setUser, token, setToken }}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainMenu />}>
@@ -57,6 +63,7 @@ export default function App() {
           <Route element={<Account />} path='account' />
           <Route element={<MyTodoList />} path='mytodolist' />
           <Route element={<Students />} path='Students' />
+          <Route element={<MyAccount />} path='myaccount' />
           <Route element={<NoPage />} path="*" />
         </Route>
       </Routes>
@@ -69,14 +76,19 @@ function MainMenu() {
   return (
     <>
       <div>
-        <Link to='fetchfromfb'><Button>FetchfromFB</Button></Link>
+        {/* THese are for Firebase */}
+        {/* <Link to='fetchfromfb'><Button>FetchfromFB</Button></Link>
         <Link to='fetchsimple'><Button>Fetch Simple</Button></Link>
         <Link to='students'><Button>Students</Button></Link>
         <Link to='todossimple'><Button>Todos Simple</Button></Link>
         <Link to='otplogin'><Button>OTP Login</Button></Link>
         <Link to='account'><Button>Account</Button></Link>
-        <Link to='mytodolist'><Button>My todo list</Button></Link>
+        <Link to='mytodolist'><Button>My todo list</Button></Link> */}
+
+        {/* SQLite pages */}
         <Link to='students'><Button>Students</Button></Link>
+        <Link to='myaccount'><Button>My Account</Button></Link>
+
         {/* <Link to='/'>Home</Link> */}
         {/* <Link to='/'><Button>Home</Button></Link>
         <Link to='/states'><Button>States</Button></Link>
