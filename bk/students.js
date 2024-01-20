@@ -1,3 +1,5 @@
+const jwt = require("jsonwebtoken")
+
 function studentsSQLiteAPI(app, db) {
 
   db.run(`
@@ -28,6 +30,7 @@ function studentsSQLiteAPI(app, db) {
 
   // add a studnets
   app.post('/students', (req, res) => {
+    if (!verifyToken(req, res)) return
     const { name, phone } = req.body
     const sql = "INSERT INTO students (name,phone) VALUES (?,?)"
     db.run(sql, [name, phone], (error) => {
@@ -38,6 +41,7 @@ function studentsSQLiteAPI(app, db) {
 
   // delete one student by id
   app.delete('/students/:id', (req, res) => {
+    if (!verifyToken(req, res)) return
     const { id } = req.params
     // const id = req.params.id
     const sql = "DELETE FROM students where id=?"
@@ -49,6 +53,7 @@ function studentsSQLiteAPI(app, db) {
 
   // delete all students
   app.delete('/students/', (req, res) => {
+    if (!verifyToken(req, res)) return
     const sql = "DELETE FROM students"
     db.run(sql, (error) => {
       if (error) return res.status(500).json(error.message)
@@ -59,6 +64,7 @@ function studentsSQLiteAPI(app, db) {
 
   // update one studnet by id
   app.post('/students/:id', (req, res) => {
+    if (!verifyToken(req, res)) return
     const { id } = req.params
     const { name, phone } = req.body
     const sql = "UPDATE students set name=? , phone=? where id=?"
@@ -67,6 +73,20 @@ function studentsSQLiteAPI(app, db) {
       return res.status(200).json("student updated successfully");
     })
   })
+
+  function verifyToken(req, res) {
+    const token = req?.headers?.authorization?.split(" ")[1];
+    try {
+      return jwt.verify(token, "RANDOM-TOKEN");
+    } catch (error) {
+      if (error instanceof jwt.TokenExpiredError) {
+        res.status(401).json({ error: "Token has expired" });
+      } else {
+        res.status(500).json({ error: "Token verification failed" });
+      }
+      return false
+    }
+  }
 
 
 }

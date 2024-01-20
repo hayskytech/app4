@@ -15,7 +15,8 @@ export default function Students() {
 
   let headersList = {
     "Accept": "*/*",
-    "Content-Type": "application/json"
+    "Content-Type": "application/json",
+    "Authorization": "Bearer " + token?.token
   }
 
   // getting all students from DB
@@ -110,9 +111,7 @@ export default function Students() {
     setPhone('')
 
   }
-  if (!token) {
-    return 'Please login...'
-  }
+
   return (
     <Container>
       <h3>Students</h3>
@@ -149,17 +148,23 @@ export default function Students() {
         </Modal.Actions>
       </Modal>
 
-      <Button color='green' onClick={() => setBox(true)}>Add</Button>
-      <Button color='red' onClick={() => setConf(true)}>Delete All</Button>
+      {token ?
+        <>
+          <Button color='green' onClick={() => setBox(true)}>Add</Button>
+          <Button color='red' onClick={() => setConf(true)}>Delete All</Button>
+        </>
+        : ""}
 
       <List divided verticalAlign='middle'>
         {
           list.map((item) =>
             <List.Item>
-              <List.Content floated='right'>
-                <Button color='blue' onClick={() => editItem(item.id)}>Edit</Button>
-                <Button color='red' onClick={() => deleteItem(item.id)}>Delete</Button>
-              </List.Content>
+              {token ?
+                <List.Content floated='right'>
+                  <Button color='blue' onClick={() => editItem(item.id)}>Edit</Button>
+                  <Button color='red' onClick={() => deleteItem(item.id)}>Delete</Button>
+                </List.Content>
+                : ""}
               <List.Content>{item.name}</List.Content>
               <List.Content>{item.phone}</List.Content>
             </List.Item>

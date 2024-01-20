@@ -25,7 +25,7 @@ export default function MyAccount() {
       headers: headersList
     });
 
-    let data = await response.text();
+    let data = await response.json();
     console.log(data);
     localStorage.setItem('token', JSON.stringify(data));
     setToken(data)
