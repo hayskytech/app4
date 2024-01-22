@@ -1,0 +1,2 @@
+cd bk
+npm start

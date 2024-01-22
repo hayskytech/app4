@@ -6,6 +6,7 @@ const { studentsSQLiteAPI } = require("./students")
 const { booksSQLite } = require("./books")
 const { dummyAPIs } = require("./dummyapis")
 const { AuthenticationAPIs } = require("./auth")
+const { Mysql_Fruits } = require("./mysql_friuts")
 const db = new sqlite3.Database('./sample.db')
 
 const app = express()
@@ -16,7 +17,10 @@ app.listen(4000, () => {
   // console.log("Server is running on port 4000");
 })
 
+// sqlite database
 dummyAPIs(app, db)
 AuthenticationAPIs(app, db)
 studentsSQLiteAPI(app, db)
 booksSQLite(app, db)
+// mysql database
+Mysql_Fruits(app)
