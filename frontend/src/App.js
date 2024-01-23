@@ -21,6 +21,7 @@ import Account from './FB/Account';
 import MyTodoList from './FB/MyTodoList';
 import Students from './express/Students';
 import MyAccount from './express/MyAccount';
+import Fruits from './express/Fruits';
 export const MyContext = createContext(null)
 
 export default function App() {
@@ -64,6 +65,7 @@ export default function App() {
           <Route element={<MyTodoList />} path='mytodolist' />
           <Route element={<Students />} path='Students' />
           <Route element={<MyAccount />} path='myaccount' />
+          <Route element={<Fruits />} path='fruits' />
           <Route element={<NoPage />} path="*" />
         </Route>
       </Routes>
@@ -87,6 +89,7 @@ function MainMenu() {
 
         {/* SQLite pages */}
         <Link to='students'><Button>Students</Button></Link>
+        <Link to='fruits'><Button>Fruits</Button></Link>
         <Link to='myaccount'><Button>My Account</Button></Link>
 
         {/* <Link to='/'>Home</Link> */}
