@@ -82,15 +82,15 @@ function MainMenu() {
         {/* <Link to='fetchfromfb'><Button>FetchfromFB</Button></Link>
         <Link to='fetchsimple'><Button>Fetch Simple</Button></Link>
         <Link to='students'><Button>Students</Button></Link>
-        <Link to='todossimple'><Button>Todos Simple</Button></Link>
+        <Link to='todossimple'><Button>Todos Simple</Button></Link> */}
         <Link to='otplogin'><Button>OTP Login</Button></Link>
         <Link to='account'><Button>Account</Button></Link>
-        <Link to='mytodolist'><Button>My todo list</Button></Link> */}
+        <Link to='mytodolist'><Button>My todo list</Button></Link>
 
         {/* SQLite pages */}
-        <Link to='students'><Button>Students</Button></Link>
+        {/* <Link to='students'><Button>Students</Button></Link>
         <Link to='fruits'><Button>Fruits</Button></Link>
-        <Link to='myaccount'><Button>My Account</Button></Link>
+        <Link to='myaccount'><Button>My Account</Button></Link> */}
 
         {/* <Link to='/'>Home</Link> */}
         {/* <Link to='/'><Button>Home</Button></Link>
