@@ -1,13 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { db } from './conf'
+import { auth, db } from './conf'
 import { onValue, push, ref, set } from 'firebase/database'
 import { MyContext } from '../App'
-import {
-  Button, Input, List, Modal, ModalHeader,
-  ModalDescription,
-  ModalContent,
-  ModalActions
-} from 'semantic-ui-react'
+import { Button, Input, List, Modal, ModalHeader, ModalDescription, ModalContent, ModalActions } from 'semantic-ui-react'
+import { signOut } from 'firebase/auth'
 
 export default function MyTodoList() {
   const { user } = useContext(MyContext)
@@ -20,11 +16,16 @@ export default function MyTodoList() {
 
   useEffect(() => {
     if (user) {
-      onValue(ref(db, 'mytodos/' + user?.phoneNumber),
+      onValue(ref(db, 'mytodos/' + user?.uid),
         (snapshot) => {
           const res = snapshot.val();
-          setData(res)
-          const newData = Object.entries(res)
+          let newData = []
+          if (res) {
+            setData(res)
+            newData = Object.entries(res)
+          } else {
+            console.log('No data found');
+          }
           setList(newData);
         }
       )
@@ -32,13 +33,13 @@ export default function MyTodoList() {
   }, [])
 
   function addItem() {
-    const newKey = push(ref(db, 'mytodos/' + user?.phoneNumber))
+    const newKey = push(ref(db, 'mytodos/' + user?.uid))
     set(newKey, text)
     setText('')
   }
   function deleteItem(key) {
-    set(ref(db, `mytodos/${user?.phoneNumber}/${key}`), null)
-    // set(ref(db, 'mytodos/' + user?.phoneNumber + '/' + key), null)
+    set(ref(db, `mytodos/${user?.uid}/${key}`), null)
+    // set(ref(db, 'mytodos/' + user?.uid + '/' + key), null)
   }
   function editItem(key) {
     setEditText(data[key])
@@ -46,16 +47,24 @@ export default function MyTodoList() {
     setOpen(true)
   }
   function saveItem() {
-    set(ref(db, `mytodos/${user?.phoneNumber}/${editKey}`), editText)
+    set(ref(db, `mytodos/${user?.uid}/${editKey}`), editText)
     setOpen(false)
     setEditText('')
     setEditKey(null)
+  }
+  function doLogout() {
+    signOut(auth).then(() => {
+      // Sign-out successful.
+    }).catch((error) => {
+      console.log(error);
+    });
+
   }
   return (
     <div>
       <Input value={text} onChange={(e) => setText(e.target.value)} />
       <Button onClick={addItem}>Add</Button>
-
+      <Button color='red' onClick={doLogout}>Logout</Button>
       <Modal
         onClose={() => setOpen(false)}
         onOpen={() => setOpen(true)}

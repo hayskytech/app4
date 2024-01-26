@@ -44,9 +44,16 @@ export default function App() {
     };
   }, [auth]);
   return (<MyContext.Provider value={{ user, setUser, token, setToken }}>
-    <BrowserRouter>
+    <h2 style={{ textAlign: 'center' }}>TodoList by Haysky</h2>
+    <hr />
+    {user ?
+      <MyTodoList />
+      :
+      <Account />
+    }
+    {/* <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainMenu />}>
+        <Route path="/app4/" element={<MainMenu />}>
           <Route index element={<States />} />
           <Route element={<States />} path='states' />
           <Route element={<About />} path="about" />
@@ -69,7 +76,7 @@ export default function App() {
           <Route element={<NoPage />} path="*" />
         </Route>
       </Routes>
-    </BrowserRouter>
+    </BrowserRouter> */}
   </MyContext.Provider>)
 }
 
@@ -83,9 +90,9 @@ function MainMenu() {
         <Link to='fetchsimple'><Button>Fetch Simple</Button></Link>
         <Link to='students'><Button>Students</Button></Link>
         <Link to='todossimple'><Button>Todos Simple</Button></Link> */}
-        <Link to='otplogin'><Button>OTP Login</Button></Link>
-        <Link to='account'><Button>Account</Button></Link>
-        <Link to='mytodolist'><Button>My todo list</Button></Link>
+        <Link to='/app4/otplogin'><Button>OTP Login</Button></Link>
+        <Link to='/app4/account'><Button>Account</Button></Link>
+        <Link to='/app4/mytodolist'><Button>My todo list</Button></Link>
 
         {/* SQLite pages */}
         {/* <Link to='students'><Button>Students</Button></Link>
