@@ -30,7 +30,7 @@ export default function MyTodoList() {
         }
       )
     }
-  }, [])
+  }, [user])
 
   function addItem() {
     const newKey = push(ref(db, 'mytodos/' + user?.uid))
